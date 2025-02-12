@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do You Like Me?</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: #FFE6E6; /* Light pink background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #D32F2F; /* Dark red text */
+      text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      transition: text-shadow 0.3s ease;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      padding: 15px 30px;
+      border: 3px solid #D32F2F; /* Dark red border */
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #FF5252; /* Bright red button */
+      color: #FFF; /* White text */
+      text-transform: uppercase;
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    button:hover {
+      background-color: #FF867F; /* Lighter red hover effect */
+    }
+
+    #yesButton {
+      background-color: #FFCDD2; /* Light pink button */
+      color: #D32F2F;
+    }
+
+    #noButton {
+      background-color: #D32F2F; /* Dark red button */
+      color: #FFF;
+    }
+
+    .gif-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .gif-container img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 3D Effect */
+    h1:hover, button:hover {
+      text-shadow: 8px 8px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Footer */
+    footer {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: #D32F2F;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <img src="Symbol.png" alt="Company Logo" class="logo">
+  <div class="container">
+    <h1>Do you like me?</h1>
+    <div class="buttons">
+      <button id="yesButton">Yes</button>
+      <button id="noButton">No</button>
+    </div>
+    <div class="gif-container">
+      <img src="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif" alt="Acceptance GIF">
+    </div>
+  </div>
+
+  <footer>
+    Developed with ❤️ by rektor.Adityabonde | 2025
+  </footer>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const gifContainer = document.querySelector('.gif-container');
+    const heading = document.querySelector('h1');
+    let clickCount = 0;
+
+    noButton.addEventListener('click', () => {
+      clickCount++;
+      const yesButtonSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+      yesButton.style.fontSize = `${yesButtonSize * 1.2}px`;
+      yesButton.style.padding = `${parseFloat(window.getComputedStyle(yesButton).paddingTop) * 1.2}px ${parseFloat(window.getComputedStyle(yesButton).paddingRight) * 1.2}px`;
+
+      if (clickCount >= 4) {
+        yesButton.style.width = '100vw';
+        yesButton.style.height = '100vh';
+        yesButton.style.position = 'fixed';
+        yesButton.style.top = '0';
+        yesButton.style.left = '0';
+        yesButton.style.borderRadius = '0';
+        yesButton.style.fontSize = '3rem';
+        noButton.style.display = 'none';
+      }
+    });
+
+    yesButton.addEventListener('click', () => {
+      document.querySelector('.buttons').style.display = 'none';
+      heading.textContent = "I knew it! You're stuck with me now! 😜";
+      heading.style.marginTop = '0'; /* Ensure text stays centered */
+      gifContainer.style.display = 'block';
+    });
+
+    // 3D Effect based on cursor position
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      document.querySelector('h1').style.textShadow = `${-x * 12}px ${-y * 12}px 16px rgba(0, 0, 0, 0.7)`;
+      document.querySelectorAll('button').forEach(button => {
+        button.style.boxShadow = `${-x * 12}px ${-y * 12}px 16px rgba(0, 0, 0, 0.7)`;
+      });
+    });
+  </script>
+</body>
+</html>
