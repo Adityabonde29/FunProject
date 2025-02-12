@@ -27,8 +27,8 @@
       position: absolute;
       top: 20px;
       left: 20px;
-      width: 50px;
-      height: 50px;
+      width: 50px; /* Fixed size */
+      height: 50px; /* Fixed size */
     }
 
     .container {
@@ -38,7 +38,7 @@
     h1 {
       font-size: 2rem;
       color: #D32F2F; /* Dark red text */
-      text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* Love-themed shadow (soft pink glow) */
       margin-bottom: 20px;
       transition: text-shadow 0.3s ease;
     }
@@ -60,11 +60,14 @@
       background-color: #FF5252; /* Bright red button */
       color: #FFF; /* White text */
       text-transform: uppercase;
-      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.8); /* Love-themed shadow */
+      text-shadow: none; /* No shadow on button text */
     }
 
     button:hover {
       background-color: #FF867F; /* Lighter red hover effect */
+      transform: scale(1.1); /* Scale up on hover */
+      box-shadow: 0 0 20px rgba(255, 105, 180, 1); /* Enhanced shadow on hover */
     }
 
     #yesButton {
@@ -86,11 +89,6 @@
       max-width: 100%;
       border-radius: 10px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    }
-
-    /* 3D Effect */
-    h1:hover, button:hover {
-      text-shadow: 8px 8px 16px rgba(0, 0, 0, 0.7);
     }
 
     /* Footer */
@@ -153,16 +151,6 @@
       heading.textContent = "I knew it! You're stuck with me now! 😜";
       heading.style.marginTop = '0'; /* Ensure text stays centered */
       gifContainer.style.display = 'block';
-    });
-
-    // 3D Effect based on cursor position
-    document.addEventListener('mousemove', (e) => {
-      const x = e.clientX / window.innerWidth - 0.5;
-      const y = e.clientY / window.innerHeight - 0.5;
-      document.querySelector('h1').style.textShadow = `${-x * 12}px ${-y * 12}px 16px rgba(0, 0, 0, 0.7)`;
-      document.querySelectorAll('button').forEach(button => {
-        button.style.boxShadow = `${-x * 12}px ${-y * 12}px 16px rgba(0, 0, 0, 0.7)`;
-      });
     });
   </script>
 </body>
