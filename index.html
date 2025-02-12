@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Do You Like Me?</title>
+  <link rel="shortcut icon" href="Symbol.png">
   <style>
     /* General Reset */
     * {
@@ -91,6 +92,14 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     }
 
+    .user-message {
+      display: none;
+      font-size: 1.5rem;
+      color: #D32F2F;
+      margin-top: 20px;
+      text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+    }
+
     /* Footer */
     footer {
       position: absolute;
@@ -100,6 +109,83 @@
       font-size: 0.8rem;
       color: #D32F2F;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Pop-up Box */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-box {
+      background: #FFE6E6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.8);
+      text-align: center;
+      position: relative;
+      width: 300px;
+    }
+
+    .popup-box h2 {
+      font-size: 1.5rem;
+      color: #D32F2F;
+      margin-bottom: 20px;
+    }
+
+    .popup-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 2px solid #D32F2F;
+      border-radius: 5px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      color: #D32F2F;
+    }
+
+    .popup-box button {
+      background-color: #FF5252;
+      color: #FFF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+    }
+
+    .popup-box button:hover {
+      background-color: #FF867F;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 30px;
+      height: 30px;
+      background: #D32F2F;
+      color: #FFF;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .close-btn:hover {
+      background: #FF5252;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -115,17 +201,51 @@
     <div class="gif-container">
       <img src="https://media.giphy.com/media/3o7abAHdYvZdBNnGZq/giphy.gif" alt="Acceptance GIF">
     </div>
+    <div class="user-message" id="userMessage"></div>
   </div>
 
   <footer>
     Developed with ❤️ by rektor.Adityabonde | 2025
   </footer>
 
+  <!-- Pop-up Box -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+      <div class="close-btn" id="closeBtn">✕</div>
+      <h2>What's your name?</h2>
+      <input type="text" id="userNameInput" placeholder="Enter your name">
+      <button id="submitName">Submit</button>
+    </div>
+  </div>
+
   <script>
+    // Pop-up Logic
+    const popupOverlay = document.getElementById('popupOverlay');
+    const closeBtn = document.getElementById('closeBtn');
+    const submitNameBtn = document.getElementById('submitName');
+    const userNameInput = document.getElementById('userNameInput');
+    let userName = "Friend"; // Default name
+
+    // Show pop-up on page load
+    popupOverlay.style.display = 'flex';
+
+    // Close pop-up when close button is clicked
+    closeBtn.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+    });
+
+    // Submit name and close pop-up
+    submitNameBtn.addEventListener('click', () => {
+      userName = userNameInput.value.trim() || "Friend"; // Use input or default
+      popupOverlay.style.display = 'none';
+    });
+
+    // Main Logic
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const gifContainer = document.querySelector('.gif-container');
     const heading = document.querySelector('h1');
+    const userMessage = document.getElementById('userMessage');
     let clickCount = 0;
 
     noButton.addEventListener('click', () => {
@@ -151,6 +271,10 @@
       heading.textContent = "I knew it! You're stuck with me now! 😜";
       heading.style.marginTop = '0'; /* Ensure text stays centered */
       gifContainer.style.display = 'block';
+
+      // Display the user's name with a relevant message
+      userMessage.textContent = `${userName}, you just made my day! 💖`;
+      userMessage.style.display = 'block';
     });
   </script>
 </body>
